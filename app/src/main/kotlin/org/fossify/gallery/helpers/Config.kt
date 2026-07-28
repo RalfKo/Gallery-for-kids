@@ -139,6 +139,18 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getInt(EXCLUDED_PROTECTION_TYPE, PROTECTION_PATTERN)
         set(excludedProtectionType) = prefs.edit().putInt(EXCLUDED_PROTECTION_TYPE, excludedProtectionType).apply()
 
+    var isIncludedPasswordProtectionOn: Boolean
+        get() = prefs.getBoolean(INCLUDED_PASSWORD_PROTECTION, false)
+        set(isIncludedPasswordProtectionOn) = prefs.edit().putBoolean(INCLUDED_PASSWORD_PROTECTION, isIncludedPasswordProtectionOn).apply()
+
+    var includedPasswordHash: String
+        get() = prefs.getString(INCLUDED_PASSWORD_HASH, "")!!
+        set(includedPasswordHash) = prefs.edit().putString(INCLUDED_PASSWORD_HASH, includedPasswordHash).apply()
+
+    var includedProtectionType: Int
+        get() = prefs.getInt(INCLUDED_PROTECTION_TYPE, PROTECTION_PATTERN)
+        set(includedProtectionType) = prefs.edit().putInt(INCLUDED_PROTECTION_TYPE, includedProtectionType).apply()
+
     fun addIncludedFolder(path: String) {
         val currIncludedFolders = HashSet<String>(includedFolders)
         currIncludedFolders.add(path)

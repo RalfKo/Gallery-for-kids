@@ -959,6 +959,18 @@ fun Activity.handleExcludedFolderPasswordProtection(callback: () -> Unit) {
     }
 }
 
+fun Activity.handleIncludedFolderPasswordProtection(callback: () -> Unit) {
+    if (config.isIncludedPasswordProtectionOn) {
+        SecurityDialog(this, config.includedPasswordHash, config.includedProtectionType) { _, _, success ->
+            if (success) {
+                callback()
+            }
+        }
+    } else {
+        callback()
+    }
+}
+
 fun Activity.openRecycleBin() {
     Intent(this, MediaActivity::class.java).apply {
         putExtra(DIRECTORY, RECYCLE_BIN)

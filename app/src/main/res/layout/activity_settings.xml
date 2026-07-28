@@ -808,6 +808,21 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/settings_included_item_password_protection_holder"
+                style="@style/SettingsHolderSwitchStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <org.fossify.commons.views.MyMaterialSwitch
+                    android:id="@+id/settings_included_item_password_protection"
+                    style="@style/SettingsSwitchStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password_protect_included" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/settings_file_deletion_password_protection_holder"
                 style="@style/SettingsHolderSwitchStyle"
                 android:layout_width="match_parent"

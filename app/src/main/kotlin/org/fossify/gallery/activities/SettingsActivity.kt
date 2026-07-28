@@ -77,6 +77,7 @@ class SettingsActivity : SimpleActivity() {
         setupHideSystemUI()
         setupHiddenItemPasswordProtection()
         setupExcludedItemPasswordProtection()
+        setupIncludedItemPasswordProtection()
         setupAppPasswordProtection()
         setupFileDeletionPasswordProtection()
         setupDeleteEmptyFolders()
@@ -211,7 +212,9 @@ class SettingsActivity : SimpleActivity() {
             if (isRPlus() && !isExternalStorageManager()) {
                 GrantAllFilesDialog(this)
             } else {
-                startActivity(Intent(this, IncludedFoldersActivity::class.java))
+                handleIncludedFolderPasswordProtection {
+                    startActivity(Intent(this, IncludedFoldersActivity::class.java))
+                }
             }
         }
     }
@@ -426,6 +429,28 @@ class SettingsActivity : SimpleActivity() {
 
                     if (config.isExcludedPasswordProtectionOn) {
                         val confirmationTextId = if (config.excludedProtectionType == PROTECTION_FINGERPRINT)
+                            org.fossify.commons.R.string.fingerprint_setup_successfully else org.fossify.commons.R.string.protection_setup_successfully
+                        ConfirmationDialog(this, "", confirmationTextId, org.fossify.commons.R.string.ok, 0) { }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupIncludedItemPasswordProtection() {
+        binding.settingsIncludedItemPasswordProtection.isChecked = config.isIncludedPasswordProtectionOn
+        binding.settingsIncludedItemPasswordProtectionHolder.setOnClickListener {
+            val tabToShow = if (config.isIncludedPasswordProtectionOn) config.includedProtectionType else SHOW_ALL_TABS
+            SecurityDialog(this, config.includedPasswordHash, tabToShow) { hash, type, success ->
+                if (success) {
+                    val hasPasswordProtection = config.isIncludedPasswordProtectionOn
+                    binding.settingsIncludedItemPasswordProtection.isChecked = !hasPasswordProtection
+                    config.isIncludedPasswordProtectionOn = !hasPasswordProtection
+                    config.includedPasswordHash = if (hasPasswordProtection) "" else hash
+                    config.includedProtectionType = type
+
+                    if (config.isIncludedPasswordProtectionOn) {
+                        val confirmationTextId = if (config.includedProtectionType == PROTECTION_FINGERPRINT)
                             org.fossify.commons.R.string.fingerprint_setup_successfully else org.fossify.commons.R.string.protection_setup_successfully
                         ConfirmationDialog(this, "", confirmationTextId, org.fossify.commons.R.string.ok, 0) { }
                     }
