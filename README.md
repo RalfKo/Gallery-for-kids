@@ -1,4 +1,6 @@
-# Fossify Gallery
+# Fossify Gallery for Kids
+
+vibe coded! do not use!
 
 <img alt="Logo" src="graphics/icon.webp" width="120" />
 
