@@ -1,0 +1,46 @@
+name: Build arm64-v8a Debug APK
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build arm64-v8a debug APK (foss flavor)
+        run: ./gradlew assembleFossDebug --no-daemon
+
+      - name: Locate APK
+        id: locate_apk
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/foss/debug -name "*arm64-v8a*.apk" | head -n 1)
+          if [ -z "$APK_PATH" ]; then
+            echo "Kein arm64-v8a APK gefunden, breche ab."
+            find app/build/outputs/apk -type f
+            exit 1
+          fi
+          echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-arm64-v8a-debug
+          path: ${{ steps.locate_apk.outputs.apk_path }}
+          retention-days: 14

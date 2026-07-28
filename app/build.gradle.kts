@@ -86,6 +86,15 @@ android {
         register("gplay")
     }
 
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("arm64-v8a")
+            isUniversalApk = false
+        }
+    }
+
     sourceSets {
         getByName("main").java.directories.add("src/main/kotlin")
     }
