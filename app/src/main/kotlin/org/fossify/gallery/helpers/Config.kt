@@ -127,18 +127,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getStringSet(EXCLUDED_FOLDERS, HashSet())!!
         set(excludedFolders) = prefs.edit().remove(EXCLUDED_FOLDERS).putStringSet(EXCLUDED_FOLDERS, excludedFolders).apply()
 
-    var isExcludedPasswordProtectionOn: Boolean
-        get() = prefs.getBoolean(EXCLUDED_PASSWORD_PROTECTION, false)
-        set(isExcludedPasswordProtectionOn) = prefs.edit().putBoolean(EXCLUDED_PASSWORD_PROTECTION, isExcludedPasswordProtectionOn).apply()
-
-    var excludedPasswordHash: String
-        get() = prefs.getString(EXCLUDED_PASSWORD_HASH, "")!!
-        set(excludedPasswordHash) = prefs.edit().putString(EXCLUDED_PASSWORD_HASH, excludedPasswordHash).apply()
-
-    var excludedProtectionType: Int
-        get() = prefs.getInt(EXCLUDED_PROTECTION_TYPE, PROTECTION_PATTERN)
-        set(excludedProtectionType) = prefs.edit().putInt(EXCLUDED_PROTECTION_TYPE, excludedProtectionType).apply()
-
     var isIncludedPasswordProtectionOn: Boolean
         get() = prefs.getBoolean(INCLUDED_PASSWORD_PROTECTION, false)
         set(isIncludedPasswordProtectionOn) = prefs.edit().putBoolean(INCLUDED_PASSWORD_PROTECTION, isIncludedPasswordProtectionOn).apply()

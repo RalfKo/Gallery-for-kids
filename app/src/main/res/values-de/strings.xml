@@ -188,7 +188,7 @@
     <string name="import_favorite_paths">Favoriten importieren</string>
     <string name="paths_imported_successfully">Pfade erfolgreich importiert</string>
     <string name="media_management_prompt">Um sicherzustellen, dass alle Dateivorgänge zuverlässig funktionieren, sollte diese App in den Geräteeinstellungen als Medienverwaltungs-App festgelegt werden.</string>
-    <string name="password_protect_excluded">Passwortschutz für die Sichtbarkeit ausgeschlossener Ordner</string>
+    <string name="password_protect_included">Passwortschutz für die Sichtbarkeit einbezogener &amp; ausgeschlossener Ordner</string>
     <string name="media_management_manual">Irgendetwas ist schiefgelaufen. Öffne bitte die Geräteeinstellungen – Apps – Spezieller App-Zugriff – Apps zur Medienverwaltung und erlaube dieser App, Medien zu verwalten.</string>
     <string name="media_management_note">Wenn die Umleitung nicht funktioniert, öffne bitte die Geräteeinstellungen – Apps – Spezieller App-Zugriff – Apps zur Medienverwaltung und erlaube dieser App die Medienverwaltung.</string>
     <string name="media_management_alternative">Wenn du das nicht möchtest, kannst du auch in den Geräteeinstellungen – Apps – Spezieller App-Zugriff – Apps zur Medienverwaltung dieser App die Verwaltung von Medien erlauben.</string>

@@ -947,18 +947,6 @@ fun Activity.showFileOnMap(path: String) {
     }
 }
 
-fun Activity.handleExcludedFolderPasswordProtection(callback: () -> Unit) {
-    if (config.isExcludedPasswordProtectionOn) {
-        SecurityDialog(this, config.excludedPasswordHash, config.excludedProtectionType) { _, _, success ->
-            if (success) {
-                callback()
-            }
-        }
-    } else {
-        callback()
-    }
-}
-
 fun Activity.handleIncludedFolderPasswordProtection(callback: () -> Unit) {
     if (config.isIncludedPasswordProtectionOn) {
         SecurityDialog(this, config.includedPasswordHash, config.includedProtectionType) { _, _, success ->
