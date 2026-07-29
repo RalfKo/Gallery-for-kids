@@ -463,9 +463,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible =
                 (!isRPlus() || isExternalStorageManager()) && config.temporarilyShowHidden
-
-            findItem(R.id.temporarily_show_excluded).isVisible = !config.temporarilyShowExcluded
-            findItem(R.id.stop_showing_excluded).isVisible = config.temporarilyShowExcluded
         }
     }
 
@@ -502,8 +499,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                 R.id.change_view_type -> changeViewType()
                 R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
                 R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-                R.id.temporarily_show_excluded -> tryToggleTemporarilyShowExcluded()
-                R.id.stop_showing_excluded -> tryToggleTemporarilyShowExcluded()
                 R.id.create_new_folder -> createNewFolder()
                 R.id.open_recycle_bin -> openRecycleBin()
                 R.id.column_count -> changeColumnCount()
@@ -713,24 +708,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         mLoadedInitialPhotos = false
         config.temporarilyShowHidden = show
-        binding.directoriesGrid.adapter = null
-        getDirectories()
-        refreshMenuItems()
-    }
-
-    private fun tryToggleTemporarilyShowExcluded() {
-        if (config.temporarilyShowExcluded) {
-            toggleTemporarilyShowExcluded(false)
-        } else {
-            handleExcludedFolderPasswordProtection {
-                toggleTemporarilyShowExcluded(true)
-            }
-        }
-    }
-
-    private fun toggleTemporarilyShowExcluded(show: Boolean) {
-        mLoadedInitialPhotos = false
-        config.temporarilyShowExcluded = show
         binding.directoriesGrid.adapter = null
         getDirectories()
         refreshMenuItems()
