@@ -1,0 +1,98 @@
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+index 3eedc29..0cae2df 100644
+--- a/app/build.gradle.kts
++++ b/app/build.gradle.kts
+@@ -39,6 +39,12 @@ android {
+     }
+ 
+     signingConfigs {
++        register("debug") {
++            storeFile = rootProject.file("keystore/debug.keystore")
++            storePassword = "android"
++            keyAlias = "androiddebugkey"
++            keyPassword = "android"
++        }
+         if (keystorePropertiesFile.exists()) {
+             register("release") {
+                 keyAlias = keystoreProperties.getProperty("keyAlias")
+@@ -66,6 +72,7 @@ android {
+     buildTypes {
+         debug {
+             applicationIdSuffix = ".debug"
++            signingConfig = signingConfigs.getByName("debug")
+         }
+         release {
+             isMinifyEnabled = true
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 2935461..2c0a867 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-    <string name="app_launcher_name">Gallery</string>
++    <string name="app_launcher_name">Gallery Kids</string>
+     <string name="edit">Edit</string>
+     <string name="open_camera">Open camera</string>
+     <string name="hidden">(hidden)</string>
+diff --git a/keystore/debug.keystore b/keystore/debug.keystore
+new file mode 100644
+index 0000000000000000000000000000000000000000..61dca66d430872c8133bf563fb566de343b25093
+GIT binary patch
+literal 2762
+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
+
+literal 0
+HcmV?d00001
+
