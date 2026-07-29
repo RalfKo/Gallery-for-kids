@@ -76,7 +76,6 @@ class SettingsActivity : SimpleActivity() {
         setupScreenRotation()
         setupHideSystemUI()
         setupHiddenItemPasswordProtection()
-        setupExcludedItemPasswordProtection()
         setupIncludedItemPasswordProtection()
         setupAppPasswordProtection()
         setupFileDeletionPasswordProtection()
@@ -221,7 +220,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupManageExcludedFolders() {
         binding.settingsManageExcludedFoldersHolder.setOnClickListener {
-            handleExcludedFolderPasswordProtection {
+            handleIncludedFolderPasswordProtection {
                 startActivity(Intent(this, ExcludedFoldersActivity::class.java))
             }
         }
@@ -406,29 +405,6 @@ class SettingsActivity : SimpleActivity() {
 
                     if (config.isHiddenPasswordProtectionOn) {
                         val confirmationTextId = if (config.hiddenProtectionType == PROTECTION_FINGERPRINT)
-                            org.fossify.commons.R.string.fingerprint_setup_successfully else org.fossify.commons.R.string.protection_setup_successfully
-                        ConfirmationDialog(this, "", confirmationTextId, org.fossify.commons.R.string.ok, 0) { }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun setupExcludedItemPasswordProtection() {
-        binding.settingsExcludedItemPasswordProtectionHolder.beGoneIf(binding.settingsHiddenItemPasswordProtectionHolder.isVisible())
-        binding.settingsExcludedItemPasswordProtection.isChecked = config.isExcludedPasswordProtectionOn
-        binding.settingsExcludedItemPasswordProtectionHolder.setOnClickListener {
-            val tabToShow = if (config.isExcludedPasswordProtectionOn) config.excludedProtectionType else SHOW_ALL_TABS
-            SecurityDialog(this, config.excludedPasswordHash, tabToShow) { hash, type, success ->
-                if (success) {
-                    val hasPasswordProtection = config.isExcludedPasswordProtectionOn
-                    binding.settingsExcludedItemPasswordProtection.isChecked = !hasPasswordProtection
-                    config.isExcludedPasswordProtectionOn = !hasPasswordProtection
-                    config.excludedPasswordHash = if (hasPasswordProtection) "" else hash
-                    config.excludedProtectionType = type
-
-                    if (config.isExcludedPasswordProtectionOn) {
-                        val confirmationTextId = if (config.excludedProtectionType == PROTECTION_FINGERPRINT)
                             org.fossify.commons.R.string.fingerprint_setup_successfully else org.fossify.commons.R.string.protection_setup_successfully
                         ConfirmationDialog(this, "", confirmationTextId, org.fossify.commons.R.string.ok, 0) { }
                     }
