@@ -98,6 +98,7 @@ import org.fossify.gallery.extensions.getFavoritePaths
 import org.fossify.gallery.extensions.getNoMediaFoldersSync
 import org.fossify.gallery.extensions.getOTGFolderChildrenNames
 import org.fossify.gallery.extensions.getSortedDirectories
+import org.fossify.gallery.extensions.handleIncludedFolderPasswordProtection
 import org.fossify.gallery.extensions.handleMediaManagementPrompt
 import org.fossify.gallery.extensions.isDownloadsFolder
 import org.fossify.gallery.extensions.launchAbout
@@ -1428,8 +1429,10 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             }
 
             binding.directoriesEmptyPlaceholder2.setOnClickListener {
-                showAddIncludedFolderDialog {
-                    refreshItems()
+                handleIncludedFolderPasswordProtection {
+                    showAddIncludedFolderDialog {
+                        refreshItems()
+                    }
                 }
             }
         } else {
